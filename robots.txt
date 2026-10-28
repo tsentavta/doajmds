@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /guides-src/
+Disallow: /tools/
 
 Sitemap: https://doajmds.site/sitemap.xml
