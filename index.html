@@ -3,8 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DOAJ Metadata Studio</title>
-<meta name="description" content="Неофициальный браузерный инструмент для поиска, редактирования, массовой загрузки и проверки метаданных статей в DOAJ через API v4.">
+<title>DOAJ Metadata Studio — загрузка и проверка метаданных в DOAJ</title>
+<meta name="description" content="Бесплатный инструмент для редакторов журналов: поиск в DOAJ, загрузка и правка статей через API, массовая загрузка из Excel, проверка DOI и ORCID.">
+<meta name="keywords" content="DOAJ, DOAJ API, Directory of Open Access Journals, метаданные статей, загрузка статей в DOAJ, научный журнал, открытый доступ, DOI, ORCID, open access metadata">
+<meta name="author" content="tsentavta">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://doajmds.site/">
+<meta name="theme-color" content="#e2502e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DOAJ Metadata Studio">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://doajmds.site/">
+<meta property="og:title" content="DOAJ Metadata Studio — метаданные статей в DOAJ">
+<meta property="og:description" content="Поиск, загрузка, редактирование и проверка метаданных статей в DOAJ через API v4. Бесплатно, в браузере, без установки.">
+<meta property="og:image" content="https://doajmds.site/docs/screenshot-search.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="506">
+<meta property="og:image:alt" content="Поиск статей в DOAJ Metadata Studio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DOAJ Metadata Studio — метаданные статей в DOAJ">
+<meta name="twitter:description" content="Поиск, загрузка, редактирование и проверка метаданных статей в DOAJ через API v4.">
+<meta name="twitter:image" content="https://doajmds.site/docs/screenshot-search.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "DOAJ Metadata Studio",
+  "url": "https://doajmds.site/",
+  "description": "Бесплатный браузерный инструмент для поиска, загрузки, редактирования и проверки метаданных статей в DOAJ (Directory of Open Access Journals) через DOAJ API v4.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Любая (работает в браузере)",
+  "browserRequirements": "Современный браузер с поддержкой JavaScript",
+  "inLanguage": "ru",
+  "isAccessibleForFree": true,
+  "license": "https://opensource.org/licenses/MIT",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "screenshot": "https://doajmds.site/docs/screenshot-search.jpg",
+  "codeRepository": "https://github.com/tsentavta/doajmds",
+  "author": { "@type": "Person", "name": "tsentavta", "url": "https://github.com/tsentavta" },
+  "featureList": [
+    "Поиск статей и журналов DOAJ по всем полям",
+    "Создание, изменение и удаление статей через DOAJ API",
+    "Массовая загрузка статей из JSON и CSV/Excel",
+    "Проверка метаданных: DOI, ORCID, аннотации, ключевые слова, дубли",
+    "Экспорт всех статей журнала в CSV и JSON",
+    "Сверка со списком DOI"
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e2502e'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <style>
 :root{
@@ -52,6 +98,18 @@ nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:
 .keypill{font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap}
 .keypill.on{background:var(--ok-soft);color:var(--ok);border-color:transparent}
 main{max-width:1280px;margin:0 auto;padding:16px}
+.about{margin-top:32px;padding:24px 4px 8px;border-top:1px solid var(--border);color:var(--text)}
+.about h1{font-size:20px;margin:0 0 8px}
+.about h2{font-size:15px;margin:18px 0 6px}
+.about p,.about li,.about dd{color:var(--muted);line-height:1.6;max-width:80ch}
+.about .lead{font-size:15px;margin:0 0 4px}
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 24px}
+.about-grid p{margin:0}
+.about ol{padding-left:20px;margin:0}
+.about .faq{margin:0}
+.about .faq dt{font-weight:600;margin-top:10px}
+.about .faq dd{margin:2px 0 0}
+.about code{font-family:var(--mono);font-size:12px;background:var(--panel2);padding:1px 5px;border-radius:4px}
 footer{max-width:1280px;margin:0 auto;padding:8px 16px 28px;font-size:12px;color:var(--muted);text-align:center}
 .tab{display:none}.tab.active{display:block}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
@@ -448,6 +506,46 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
     <h3>Тема</h3>
     <div class="seg" id="sTheme"><button data-v="auto">Как в системе</button><button data-v="light">Светлая</button><button data-v="dark">Тёмная</button></div>
   </div>
+</section>
+
+<section class="about" id="about" aria-labelledby="aboutTitle">
+  <h1 id="aboutTitle">DOAJ Metadata Studio — работа с метаданными статей в DOAJ</h1>
+  <p class="lead">Бесплатный онлайн-инструмент для редакторов и издателей научных журналов открытого доступа. Позволяет искать статьи и журналы в <a href="https://doaj.org" target="_blank" rel="noopener">DOAJ (Directory of Open Access Journals)</a>, загружать и исправлять статьи через DOAJ API, проверять полноту метаданных и выгружать данные в Excel — прямо в браузере, без установки и регистрации.</p>
+  <div class="about-grid">
+    <div>
+      <h2>Поиск по всем полям DOAJ</h2>
+      <p>Конструктор запросов по 54 полям статей и 83 полям журналов: название, авторы, ORCID, DOI, ISSN, год, том, выпуск, лицензия, издатель. Встроенный справочник полей с примерами помогает составить запрос без изучения документации API.</p>
+    </div>
+    <div>
+      <h2>Загрузка и редактирование статей</h2>
+      <p>Форма для создания и исправления статьи в DOAJ с проверкой при вводе: контрольные цифры ISSN и ORCID, формат DOI, ссылка на полный текст, число ключевых слов. Массовая загрузка выпуска из CSV или Excel.</p>
+    </div>
+    <div>
+      <h2>Проверка метаданных журнала</h2>
+      <p>Выгрузка всех статей журнала по ISSN и отчёт о проблемах: статьи без DOI, дубли, пропущенные аннотации, ключевые слова, аффилиации и ORCID авторов. Сверка со списком DOI из Crossref или с сайта журнала.</p>
+    </div>
+    <div>
+      <h2>Экспорт в Excel и JSON</h2>
+      <p>Выгрузка в CSV, совместимый с массовой загрузкой: исправьте данные в Excel и загрузите обратно. Ограничение DOAJ API в 1000 записей обходится автоматически.</p>
+    </div>
+  </div>
+  <h2>Как начать</h2>
+  <ol>
+    <li>Чтобы найти статьи журнала, выберите на вкладке «Поиск» поле «ISSN журнала» и введите ISSN.</li>
+    <li>Чтобы проверить метаданные всего журнала, откройте вкладку «Экспорт и сверка» и загрузите статьи по ISSN.</li>
+    <li>Чтобы загружать и исправлять статьи, получите API-ключ в личном кабинете DOAJ (Dashboard → Settings) и введите его во вкладке «Настройки».</li>
+  </ol>
+  <h2>Частые вопросы</h2>
+  <dl class="faq">
+    <dt>Это официальный сервис DOAJ?</dt>
+    <dd>Нет. Это независимый инструмент с открытым исходным кодом, который работает с публичным DOAJ API v4.</dd>
+    <dt>Куда отправляется мой API-ключ?</dt>
+    <dd>Только на doaj.org. Приложение работает целиком в браузере, своего сервера у него нет. По умолчанию ключ хранится до закрытия вкладки.</dd>
+    <dt>Как найти статьи журнала без DOI?</dt>
+    <dd>Запрос <code>issn:1234-5678 AND NOT _exists_:index.doi</code> на вкладке «Поиск» или карточка «Без DOI» на вкладке «Экспорт и сверка».</dd>
+    <dt>Сколько это стоит?</dt>
+    <dd>Бесплатно. Код открыт под лицензией MIT на <a href="https://github.com/tsentavta/doajmds" target="_blank" rel="noopener">GitHub</a>.</dd>
+  </dl>
 </section>
 </main>
 
