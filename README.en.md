@@ -8,9 +8,7 @@ Built for editors and publishers of open access journals: find articles, audit m
 
 > **Unofficial tool.** This project is not affiliated with or endorsed by DOAJ. The DOAJ name is used only to indicate which service the app works with.
 
-> The user interface is currently in Russian.
-
-![Article search](docs/screenshot-search.jpg)
+![Article search](docs/screenshot-search-en.jpg)
 
 ## Features
 
@@ -35,15 +33,15 @@ Built for editors and publishers of open access journals: find articles, audit m
 - Export to CSV (round-trips with bulk upload — fix in Excel and re-upload), JSON, ID and DOI lists.
 - Reconcile against a list of DOIs from any source.
 
-![Journal metadata audit](docs/screenshot-audit.jpg)
+![Journal metadata audit](docs/screenshot-audit-en.jpg)
 
 ## Usage
 
-**Online:** <https://doajmds.site>
+**Online:** <https://doajmds.site/en/> (English) · <https://doajmds.site> (Russian)
 
-**Locally:** download [`index.html`](index.html) and open it in a browser. No install, server or build step — it is a single dependency-free HTML file.
+**Locally:** download [`en/index.html`](en/index.html) and open it in a browser. No install, server or build step — it is a single dependency-free HTML file.
 
-Search and export need no account. Creating, updating and deleting articles requires a publisher API key: DOAJ **Dashboard → Settings → Generate a new API key**, then paste it on the «Настройки» (Settings) tab.
+Search and export need no account. Creating, updating and deleting articles requires a publisher API key: DOAJ **Dashboard → Settings → Generate a new API key**, then paste it on the Settings tab.
 
 ## Security & data
 
@@ -60,6 +58,16 @@ Search and export need no account. Creating, updating and deleting articles requ
 - Pages are sent as `bibjson.journal.start_page` but searched as `bibjson.start_page`.
 - `index.country` / `index.language` take English names (`"Russian Federation"`), `bibjson.*.country` takes codes (`RU`).
 - Sort by year with `bibjson.year.exact:desc`.
+
+## Development
+
+The Russian [`index.html`](index.html) is the single source. The English page is generated from it:
+
+```bash
+python tools/build_en.py
+```
+
+The script translates every Russian UI fragment using [`tools/en.tsv`](tools/en.tsv) (Russian⇥English, one per line) and writes [`en/index.html`](en/index.html). If you change Russian text, rerun it — it lists any fragment that still needs a translation.
 
 ## License
 

@@ -10,6 +10,9 @@
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="SPH2DkBFM3aeQhf7RyHebt_uMjyGfTej6i1yuReF3QQ">
 <link rel="canonical" href="https://doajmds.site/">
+<link rel="alternate" hreflang="ru" href="https://doajmds.site/">
+<link rel="alternate" hreflang="en" href="https://doajmds.site/en/">
+<link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/">
 <meta name="theme-color" content="#e2502e">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DOAJ Metadata Studio">
@@ -96,6 +99,8 @@ nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:
   .brand{flex:1}
   .selbar{top:96px}
 }
+.langsw{font-size:12px;font-weight:600;padding:4px 9px;border-radius:99px;border:1px solid var(--border);color:var(--muted);text-decoration:none;white-space:nowrap}
+.langsw:hover{color:var(--accent);border-color:var(--accent)}
 .keypill{font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap}
 .keypill.on{background:var(--ok-soft);color:var(--ok);border-color:transparent}
 main{max-width:1280px;margin:0 auto;padding:16px}
@@ -230,6 +235,7 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
       <button data-tab="settings">Настройки</button>
     </nav>
     <span id="keyPill" class="keypill" title="API-ключ нужен для создания, изменения и удаления статей">Без API-ключа</span>
+    <a class="langsw" href="/en/" hreflang="en" lang="en" title="English version">EN</a>
   </div>
 </header>
 
