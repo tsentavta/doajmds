@@ -34,6 +34,8 @@ LOCALE_FIXES = [
     ('"inLanguage": "ru"', '"inLanguage": "en"', 1),
     ("toLocaleString('ru')", "toLocaleString('en')", 1),
     ("'№ ' + j.number", "'no. ' + j.number", 1),
+    # links to the guides (header and "About" section)
+    ('href="/guides/', 'href="/en/guides/', 6),
     # og:image, twitter:image and JSON-LD screenshot
     ('/docs/screenshot-search.jpg', '/docs/screenshot-search-en.jpg', 3),
     # English-locale Excel expects a comma

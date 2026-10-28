@@ -39,6 +39,8 @@ Built for editors and publishers of open access journals: find articles, audit m
 
 **Online:** <https://doajmds.site/en/> (English) · <https://doajmds.site> (Russian)
 
+**Guides:** <https://doajmds.site/en/guides/> — uploading articles to DOAJ, bulk upload from Excel, finding articles without DOI or ORCID, exporting all of a journal’s articles, DOAJ API search syntax.
+
 **Locally:** download [`en/index.html`](en/index.html) and open it in a browser. No install, server or build step — it is a single dependency-free HTML file.
 
 Search and export need no account. Creating, updating and deleting articles requires a publisher API key: DOAJ **Dashboard → Settings → Generate a new API key**, then paste it on the Settings tab.
@@ -68,6 +70,15 @@ python tools/build_en.py
 ```
 
 The script translates every Russian UI fragment using [`tools/en.tsv`](tools/en.tsv) (Russian⇥English, one per line) and writes [`en/index.html`](en/index.html). If you change Russian text, rerun it — it lists any fragment that still needs a translation.
+
+Other parts of the site are generated too:
+
+| Script | Output |
+|---|---|
+| `python tools/build_guides.py` | guide pages from `guides-src/<slug>.<ru\|en>.html`, plus `sitemap.xml` |
+| `python tools/build_icons.py` | site icons and `site.webmanifest` |
+
+Deep links open the app with an action: `?example=search`, `?example=export`, `?tab=bulk`, `?q=<query>&type=journals`, `?issn=<ISSN>`.
 
 ## License
 

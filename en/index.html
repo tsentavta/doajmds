@@ -103,6 +103,8 @@ nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:
   .brand{flex:1}
   .selbar{top:96px}
 }
+.navlink{font-size:13px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.navlink:hover{color:var(--accent)}
 .langsw{font-size:12px;font-weight:600;padding:4px 9px;border-radius:99px;border:1px solid var(--border);color:var(--muted);text-decoration:none;white-space:nowrap}
 .langsw:hover{color:var(--accent);border-color:var(--accent)}
 .keypill{font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap}
@@ -115,7 +117,8 @@ main{max-width:1280px;margin:0 auto;padding:16px}
 .about .lead{font-size:15px;margin:0 0 4px}
 .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 24px}
 .about-grid p{margin:0}
-.about ol{padding-left:20px;margin:0}
+.about ol,.about ul.guides{padding-left:20px;margin:0}
+.about ul.guides li{line-height:1.8}
 .about .faq{margin:0}
 .about .faq dt{font-weight:600;margin-top:10px}
 .about .faq dd{margin:2px 0 0}
@@ -239,6 +242,7 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
       <button data-tab="settings">Settings</button>
     </nav>
     <span id="keyPill" class="keypill" title="An API key is required to create, update and delete articles">No API key</span>
+    <a class="navlink" href="/en/guides/">Guides</a>
     <a class="langsw" href="/" hreflang="ru" lang="ru" title="Русская версия">RU</a>
   </div>
 </header>
@@ -264,6 +268,7 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
       <label class="f">Sort<select id="sSort"></select></label>
       <label class="f">Per page<select id="sSize"><option>10</option><option selected>25</option><option>50</option><option>100</option></select></label>
       <div class="grow"></div>
+      <button class="b" id="sExample" title="Find articles without DOI in the journal Physics of Wave Processes and Radio Systems">Example</button>
       <button class="b" id="sClear">Reset</button>
       <button class="b primary" id="sGo">Search</button>
     </div>
@@ -431,6 +436,7 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
     <div class="row">
       <div class="seg" id="xMode"><button data-v="issn" class="on">By ISSN</button><button data-v="query">By query</button></div>
       <input id="xQ" class="mono grow" placeholder="Journal ISSN, e.g. 1810-3189">
+      <button class="b" id="xExample" title="Load and audit all articles of the journal Physics of Wave Processes and Radio Systems">Example</button>
       <button class="b primary" id="xGo">Load</button>
       <button class="b" id="xStop" style="display:none">Stop</button>
     </div>
@@ -540,6 +546,14 @@ details.help code{font-family:var(--mono);font-size:12px;background:var(--panel2
       <p>Export to CSV that round-trips with bulk upload: fix the data in Excel and upload it back. The DOAJ API limit of 1000 records is worked around automatically.</p>
     </div>
   </div>
+  <h2>Guides</h2>
+  <ul class="guides">
+    <li><a href="/en/guides/upload-articles/">How to upload articles to DOAJ: manual entry, XML, CSV and API</a></li>
+    <li><a href="/en/guides/bulk-upload-csv/">Bulk upload articles to DOAJ from Excel and CSV</a></li>
+    <li><a href="/en/guides/missing-doi-orcid/">How to find DOAJ articles without DOI, ORCID or abstracts</a></li>
+    <li><a href="/en/guides/export-articles/">How to export all of a journal’s articles from DOAJ</a></li>
+    <li><a href="/en/guides/api-search-syntax/">DOAJ API search: query syntax and fields</a></li>
+  </ul>
   <h2>Getting started</h2>
   <ol>
     <li>To find a journal’s articles, choose the “Journal ISSN (short)” field on the “Search” tab and enter the ISSN.</li>
@@ -1116,7 +1130,7 @@ function renderResults() {
   const box = $('#sResults');
   if (!S.results.length) {
     $('#sInfo').textContent = S.q && S.total === 0 ? 'Nothing found' : '';
-    box.innerHTML = S.q ? '' : '<div class="empty">Set conditions and click “Search”.<br>For example: field “Journal ISSN (short)” = 1810-3189, or “Field is missing” = bibjson.abstract.</div>';
+    box.innerHTML = S.q ? '' : '<div class="empty">Set conditions and click “Search” — or click “Example” to see search in action.<br>For example: field “Journal ISSN (short)” = 1810-3189, or “Field is missing” = bibjson.abstract.</div>';
     $('#sPager').innerHTML = ''; updateSel(); return;
   }
   const pages = Math.ceil(Math.min(S.total, 1000) / S.size);
@@ -1460,18 +1474,37 @@ function renderBulkPreview() {
 }
 $('#bSend').onclick = () => busy($('#bSend'), async () => {
   const items = bItems.filter(x => !x.v.some(v => v.lvl === 'err')).map(x => x.rec);
-  if (!confirm(`Send ${items.length} articles to DOAJ?`)) return;
-  try {
-    const r = await doaj.bulkCreate(items);
-    const up = r && (r.upload_id || r.id);
-    toast('Batch accepted by DOAJ' + (up ? `. upload_id: ${up}` : ''), 'ok', 9000);
-    if (up) { addUpload(up, items.length); $('#bUpId').value = up; checkUpload(up); }
-    else { $('#bStatus').style.display = ''; $('#bStatus').textContent = JSON.stringify(r, null, 2); }
-  } catch (e) {
-    toast('DOAJ rejected the batch: ' + e.message, 'err', 12000);
-    if (e.body) { $('#bStatus').style.display = ''; $('#bStatus').textContent = JSON.stringify(e.body, null, 2); }
+  const chunks = chunkBySize(items, BULK_MAX_BYTES);
+  if (!confirm(`Send ${items.length} articles to DOAJ?` + (chunks.length > 1 ? `\n(${chunks.length} batches of up to 600 KB, as DOAJ recommends)` : ''))) return;
+  let sent = 0, last = null;
+  for (const [i, chunk] of chunks.entries()) {
+    try {
+      const r = await doaj.bulkCreate(chunk);
+      const up = r && (r.upload_id || r.id);
+      sent += chunk.length;
+      if (up) { addUpload(up, chunk.length); last = up; }
+      else { $('#bStatus').style.display = ''; $('#bStatus').textContent = JSON.stringify(r, null, 2); }
+    } catch (e) {
+      toast(`DOAJ rejected batch ${i + 1} of ${chunks.length}: ${e.message}` + (sent ? `\nArticles already sent: ${sent}` : ''), 'err', 12000);
+      if (e.body) { $('#bStatus').style.display = ''; $('#bStatus').textContent = JSON.stringify(e.body, null, 2); }
+      return;
+    }
   }
+  toast(`Accepted by DOAJ: ${sent} articles` + (chunks.length > 1 ? `, batches: ${chunks.length}` : '') + (last ? `. upload_id: ${last}` : ''), 'ok', 9000);
+  if (last) { $('#bUpId').value = last; checkUpload(last); }
 });
+// DOAJ recommends bulk batches of about 600 KB to stay clear of the processing timeout
+const BULK_MAX_BYTES = 600 * 1024;
+function chunkBySize(items, max) {
+  const out = []; let cur = [], size = 2;
+  for (const it of items) {
+    const n = new Blob([JSON.stringify(it)]).size + 1;
+    if (cur.length && size + n > max) { out.push(cur); cur = []; size = 2; }
+    cur.push(it); size += n;
+  }
+  if (cur.length) out.push(cur);
+  return out;
+}
 function addUpload(id, n) { const l = store.get('uploads', []); l.unshift({ id, n, at: new Date().toISOString() }); store.set('uploads', l.slice(0, 30)); renderUploads(); }
 function renderUploads() {
   const l = store.get('uploads', []);
@@ -1727,6 +1760,36 @@ try {
 } catch { editorLoadRecord({ bibjson: {} }, true); }
 edChanged();
 try { const t = sessionStorage.getItem('doajs.tab'); if (t && $('#tab-' + t)) showTab(t); } catch {}
+
+/* ---------------- examples & deep links ---------------- */
+// Physics of Wave Processes and Radio Systems: ~640 articles, a realistic mix of complete and incomplete metadata
+const EXAMPLE_ISSN = '1810-3189';
+function exampleSearch() { searchFor('articles', [{ op: 'AND', f: 'issn', v: EXAMPLE_ISSN }, { op: 'AND', f: '!_exists_', v: 'doi' }]); }
+function exampleExport() { exportFor('issn', EXAMPLE_ISSN); }
+function exportFor(mode, value) {
+  setSeg($('#xMode'), mode); $('#xQ').value = value;
+  $('#xQ').placeholder = mode === 'issn' ? 'Journal ISSN, e.g. 1810-3189' : 'Lucene query';
+  showTab('export'); $('#xGo').click();
+}
+$('#sExample').onclick = exampleSearch;
+$('#xExample').onclick = exampleExport;
+// ?tab=search|editor|bulk|export|settings  ?example=search|export
+// ?q=<lucene>&type=articles|journals  (runs the search)   ?issn=<issn> | ?xq=<lucene>  (loads the export)
+(() => {
+  const p = new URLSearchParams(location.search);
+  const tab = p.get('tab'), ex = p.get('example');
+  if (tab && $('#tab-' + tab)) showTab(tab);
+  if (ex === 'search') return exampleSearch();
+  if (ex === 'export') return exampleExport();
+  if (p.get('q')) {
+    const type = p.get('type') === 'journals' ? 'journals' : 'articles';
+    S.type = type; setSeg($('#sType'), type); setSorts(); fillFieldList(); renderRef();
+    $('#qRows').innerHTML = ''; addQRow();
+    $('#qText').value = p.get('q'); qTouched = true;
+    showTab('search'); runSearch(1);
+  } else if (p.get('issn')) exportFor('issn', p.get('issn'));
+  else if (p.get('xq')) exportFor('query', p.get('xq'));
+})();
 </script>
 </body>
 </html>

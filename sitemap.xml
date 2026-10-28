@@ -3,8 +3,6 @@
   <url>
     <loc>https://doajmds.site/</loc>
     <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/"/>
@@ -12,10 +10,92 @@
   <url>
     <loc>https://doajmds.site/en/</loc>
     <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/upload-articles/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/upload-articles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/upload-articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/upload-articles/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/upload-articles/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/upload-articles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/upload-articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/upload-articles/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/bulk-upload-csv/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/bulk-upload-csv/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/bulk-upload-csv/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/bulk-upload-csv/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/bulk-upload-csv/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/bulk-upload-csv/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/bulk-upload-csv/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/bulk-upload-csv/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/missing-doi-orcid/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/missing-doi-orcid/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/missing-doi-orcid/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/missing-doi-orcid/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/missing-doi-orcid/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/missing-doi-orcid/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/missing-doi-orcid/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/missing-doi-orcid/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/export-articles/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/export-articles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/export-articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/export-articles/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/export-articles/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/export-articles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/export-articles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/export-articles/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/guides/api-search-syntax/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/api-search-syntax/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/api-search-syntax/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/api-search-syntax/"/>
+  </url>
+  <url>
+    <loc>https://doajmds.site/en/guides/api-search-syntax/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://doajmds.site/guides/api-search-syntax/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doajmds.site/en/guides/api-search-syntax/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doajmds.site/en/guides/api-search-syntax/"/>
   </url>
 </urlset>

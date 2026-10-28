@@ -631,3 +631,18 @@ API-ключ задан	API key set
 ✓ Ключ принят DOAJ	✓ Key accepted by DOAJ
 ✕ Ключ не принят	✕ Key rejected
 Не удалось проверить: ${esc(e.message)}	Could not verify: ${esc(e.message)}
+Инструкции	Guides
+Найти статьи журнала «Физика волновых процессов и радиотехнические системы» без DOI	Find articles without DOI in the journal Physics of Wave Processes and Radio Systems
+Загрузить и проверить все статьи журнала «Физика волновых процессов и радиотехнические системы»	Load and audit all articles of the journal Physics of Wave Processes and Radio Systems
+Как загрузить статьи в DOAJ: вручную, XML, CSV и API	How to upload articles to DOAJ: manual entry, XML, CSV and API
+Массовая загрузка статей в DOAJ из Excel и CSV	Bulk upload articles to DOAJ from Excel and CSV
+Как найти статьи без DOI, ORCID и аннотаций в DOAJ	How to find DOAJ articles without DOI, ORCID or abstracts
+Как выгрузить все статьи журнала из DOAJ	How to export all of a journal’s articles from DOAJ
+Поиск в DOAJ API: синтаксис запросов и поля	DOAJ API search: query syntax and fields
+Задайте условия и нажмите «Найти» — или нажмите «Пример», чтобы увидеть поиск в действии.	Set conditions and click “Search” — or click “Example” to see search in action.
+\n(${chunks.length} пакетов до 600 КБ — так рекомендует DOAJ)	\n(${chunks.length} batches of up to 600 KB, as DOAJ recommends)
+DOAJ отклонил пакет ${i + 1} из ${chunks.length}: ${e.message}	DOAJ rejected batch ${i + 1} of ${chunks.length}: ${e.message}
+\nУже отправлено статей: ${sent}	\nArticles already sent: ${sent}
+Принято DOAJ: ${sent} статей	Accepted by DOAJ: ${sent} articles
+, пакетов: ${chunks.length}	, batches: ${chunks.length}
+Lucene-запрос	Lucene query
